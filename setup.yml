@@ -1,0 +1,7 @@
+- hosts: all
+  sudo: yes
+  tasks:
+    - include: tasks/locale.yml
+    - include: tasks/docker.yml
+  handlers:
+    - include: handlers/docker.yml
