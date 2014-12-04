@@ -1,0 +1,5 @@
+mysql_port: 3306
+mysql_host: mysql
+mysql_root_password: mysqlsecret
+mysql_user: user
+mysql_password: usersecret

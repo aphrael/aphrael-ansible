@@ -1,0 +1,11 @@
+- name: Upstart mysql conf
+  copy: src=upstart.conf dest=/etc/init/mysql.conf
+
+- name: mysql container
+  docker: >
+    name=mysql-container
+    image=mysql:5.6
+    volumes=/volumes/mysql/data:/var/lib/mysql
+    ports={{ mysql_port }}:{{ mysql_port }}
+    env="MYSQL_ROOT_PASSWORD={{ mysql_root_password }},MYSQL_USER={{ mysql_user }},MYSQL_PASSWORD={{ mysql_password }}"
+  notify: Start mysql container

@@ -1,0 +1,5 @@
+- name: Start mysql container
+  service: name=mysql state=started
+
+- name: Restart mysql container
+  service: name=mysql state=restarted
