@@ -1,0 +1,5 @@
+- name: Start grack container
+  service: name=grack state=started
+
+- name: Restart grack container
+  service: name=grack state=restarted

@@ -1,0 +1,16 @@
+- name: Upstart grack conf
+  copy: src=upstart.conf dest=/etc/init/grack.conf
+
+- name: grack container
+  docker: >
+    name=grack-container
+    image=yuanying/grack
+    volumes=/volumes/repos:/var/repos
+    ports={{ grack_port }}:{{ grack_port }}
+  notify: Start grack container
+
+- name: grack site
+  template: >
+    src=site.conf
+    dest=/volumes/etc/nginx/sites-enabled/grack.conf
+  notify: Restart Nginx container

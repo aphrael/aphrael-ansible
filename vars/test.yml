@@ -1,3 +1,2 @@
-locale: en_US.UTF-8
-timezone: Asia/Tokyo
-
+router_address: 192.168.33.10
+domain: 192.168.33.10.xip.io
