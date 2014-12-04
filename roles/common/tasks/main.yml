@@ -12,7 +12,7 @@
 
 - name: Set /etc/timezone to {{ timezone }}
   template: >
-    src=templates/timezone
+    src=timezone
     dest=/etc/timezone
   # notify: Update tzdata
   tags:

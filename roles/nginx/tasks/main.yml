@@ -1,0 +1,21 @@
+- name: Nginx config file directory
+  file: path=/volumes/etc/nginx state=directory owner=root group=root mode=0755
+
+- name: Upstart Nginx conf
+  copy: src=upstart/nginx.conf dest=/etc/init/nginx.conf
+
+- name: Nginx container
+  docker: >
+    name=nginx-container
+    image=dockerfile/nginx
+    ports=80:80,443:443
+  notify: Start Nginx container
+
+- name: Nginx sites
+  copy: >
+    src=nginx/
+    dest=/volumes/etc/nginx/
+    directory_mode=755
+  notify: Restart Nginx container
+
+
