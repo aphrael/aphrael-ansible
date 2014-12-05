@@ -1,0 +1,27 @@
+- name: Upstart dir_image conf
+  copy: src=upstart.conf dest=/etc/init/dir_image.conf
+
+- name: dir_image config dir
+  file: >
+    state=directory
+    path=/volumes/etc/dir_image/configs
+    recurse=yes
+
+- name: dir_image config file
+  template: >
+    src=config.yml
+    dest=/volumes/etc/dir_image/configs/config.yml
+
+- name: dir_image container
+  docker: >
+    name=dir_image-container
+    image=yuanying/dir_image
+    volumes=/volumes:/volumes,/volumes/etc/dir_image/configs:/dir_image/configs
+    ports={{ dir_image_port }}:{{ dir_image_port }}
+  notify: Start dir_image container
+
+- name: dir_image site
+  template: >
+    src=site.conf
+    dest=/volumes/etc/nginx/sites-enabled/dir_image.conf
+  notify: Restart Nginx container

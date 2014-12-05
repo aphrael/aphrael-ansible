@@ -1,0 +1,3 @@
+dir_image_port: 9873
+dir_image_host: h.example.com
+dir_image_dirs: [ '/volumes/images' ]

@@ -1,0 +1,5 @@
+tmp_dir: '/.random_image'
+image_dirs:
+  {% for image_dir in dir_image_dirs %}
+  - {{ image_dir }}
+  {% endfor %}

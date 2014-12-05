@@ -1,0 +1,5 @@
+- name: Start dir_image container
+  service: name=dir_image state=started
+
+- name: Restart dir_image container
+  service: name=dir_image state=restarted

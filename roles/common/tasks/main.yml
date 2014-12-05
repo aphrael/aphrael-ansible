@@ -17,3 +17,10 @@
   # notify: Update tzdata
   tags:
     - locale
+
+- name: Backup volumes
+  cron: >
+    name="backup volumes"
+    user=yuanying
+    job="rsync -az -e ssh --rsync-path='/Users/yuanying/bin/rsync.sh' --exclude 'lost+found' /volumes/ 192.168.1.86:/backups/"
+    special_time=daily

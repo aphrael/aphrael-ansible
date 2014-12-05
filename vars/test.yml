@@ -3,4 +3,5 @@ domain: 192.168.33.10.xip.io
 mysql_root_password: mysqlsecret
 mysql_user: user
 mysql_password: usersecret
-
+dir_image_host: h.192.168.33.10.xip.io
+dir_image_dirs: [ '/volumes/images' ]
