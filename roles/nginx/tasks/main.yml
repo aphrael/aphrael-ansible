@@ -19,4 +19,8 @@
     directory_mode=755
   notify: Restart Nginx container
 
-
+- name: Nginx htpasswd
+  template: >
+    src=htpasswd
+    dest=/volumes/etc/nginx/sites-enabled/.htpasswd
+  notify: Start Nginx container
