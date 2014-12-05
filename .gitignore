@@ -1,2 +1,4 @@
 .vagrant
 docker-files
+hosts/production
+vars/production.yml
