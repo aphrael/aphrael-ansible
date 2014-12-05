@@ -1,0 +1,5 @@
+- name: www site
+  template: >
+    src=site.conf
+    dest=/volumes/etc/nginx/sites-enabled/www.conf
+  notify: Restart Nginx container
