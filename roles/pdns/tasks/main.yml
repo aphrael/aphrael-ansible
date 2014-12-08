@@ -1,0 +1,11 @@
+- name: Upstart pdns conf
+  copy: src=upstart.conf dest=/etc/init/pdns.conf
+
+- name: pdns container
+  docker: >
+    name=pdns-container
+    image=yuanying/pdns-mysql
+    ports=53:53,53:53/udp
+    links=mysql-container:mysql
+    env=MYSQL_ROOT_PASSWORD={{mysql_root_password}},PDNS_MYSQL_DB_NAME={{pdns_db_name}},PDNS_MYSQL_DB_USER={{pdns_db_user}},PDNS_MYSQL_DB_PASSWORD={{pdns_db_password}}
+  notify: Start pdns container

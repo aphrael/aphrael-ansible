@@ -4,6 +4,7 @@
     - common
     - docker
     - mysql
+    - pdns
     - nginx
     - www
     - grack

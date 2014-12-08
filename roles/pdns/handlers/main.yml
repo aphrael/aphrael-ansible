@@ -1,0 +1,5 @@
+- name: Start pdns container
+  service: name=pdns state=started
+
+- name: Restart pdns container
+  service: name=pdns state=restarted
