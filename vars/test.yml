@@ -12,3 +12,9 @@ pdns_db_password: password
 
 htpasswd: |
   test:rmqTJ03o8MSH.
+
+tumblr:
+  key: XXXXX
+  secret: XXXXXX
+  token: XXXXXX
+  token_secret: XXXXX

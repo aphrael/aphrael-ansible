@@ -1,0 +1,13 @@
+- name: tumblr-like container
+  docker: >
+    name=tumblr-like-container
+    state=present
+    image=yuanying/tumblr-like
+    volumes=/volumes/h/Tumblr:/usr/src/app/contents
+    env=TUMBLR_CONSUMER_KEY={{tumblr.key}},TUMBLR_CONSUMER_SECRET={{tumblr.secret}},TUMBLR_CONSUMER_TOKEN={{tumblr.token}},TUMBLR_CONSUMER_TOKEN_SECRET={{tumblr.token_secret}}
+
+- name: Backup tumblr
+  cron: >
+    name="backup tumblr"
+    job="docker start tumblr-like-container"
+    special_time=daily
