@@ -8,7 +8,7 @@
   docker: >
     name=nginx-container
     image=dockerfile/nginx
-    volumes=/volumes/etc/nginx/sites-enabled:/etc/nginx/sites-enabled,/volumes:/volumes
+    volumes=/volumes/etc/nginx/sites-enabled:/etc/nginx/sites-enabled,/volumes:/volumes,/volumes/etc/nginx/certs:/etc/nginx/certs
     ports=80:80,443:443
   notify: Start Nginx container
 
