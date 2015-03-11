@@ -1,0 +1,5 @@
+- name: Start cadvisor container
+  service: name=cadvisor state=started
+
+- name: Restart cadvisor container
+  service: name=cadvisor state=restarted

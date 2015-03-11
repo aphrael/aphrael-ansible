@@ -1,0 +1,19 @@
+- name: Upstart cadvisor conf
+  copy: src=upstart.conf dest=/etc/init/cadvisor.conf
+
+- name: cadvisor container
+  docker:
+    name: cadvisor-container
+    image: google/cadvisor
+    volumes: "/var/run:/var/run:rw,/sys:/sys:ro,/var/lib/docker/:/var/lib/docker:ro"
+    ports: "{{ cadvisor_port }}:8080"
+    #env: "DB_NAME={{ cadvisor_db }},DB_USER={{ cadvisor_db_user }},DB_PASS={{ cadvisor_db_pass }}"
+    #links: influxdb-container:influxdb
+    command: "--storage_driver=influxdb --storage_driver_host={{ router_address }}:{{ influxdb_port[1] }} --log_dir=/"
+  notify: Start cadvisor container
+
+- name: cadvisor site
+  template: >
+    src=site.conf
+    dest=/volumes/etc/nginx/sites-enabled/cadvisor.conf
+  notify: Restart Nginx container

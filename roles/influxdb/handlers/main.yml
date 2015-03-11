@@ -1,0 +1,5 @@
+- name: Start influxdb container
+  service: name=influxdb state=started
+
+- name: Restart influxdb container
+  service: name=influxdb state=restarted

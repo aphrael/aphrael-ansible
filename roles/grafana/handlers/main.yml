@@ -1,0 +1,5 @@
+- name: Start grafana container
+  service: name=grafana state=started
+
+- name: Restart grafana container
+  service: name=grafana state=restarted

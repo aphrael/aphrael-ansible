@@ -1,0 +1,7 @@
+grafana_port: 8081
+grafana_host: grafana
+grafana_db: cadvisor
+grafana_db_user: root
+grafana_db_pass: root
+grafana_user: root
+grafana_pass: password

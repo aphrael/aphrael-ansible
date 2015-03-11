@@ -1,0 +1,18 @@
+- name: Upstart influxdb conf
+  copy: src=upstart.conf dest=/etc/init/influxdb.conf
+
+- name: influxdb container
+  docker:
+    name: influxdb-container
+    image: tutum/influxdb
+    volumes: /volumes/repos:/var/repos
+    ports: "{{ influxdb_port[0] }}:8083,{{ influxdb_port[1] }}:8086"
+    expose: "8090,8099"
+    env: "PRE_CREATE_DB={{ influxdb_pre_create_db }}"
+  notify: Start influxdb container
+
+- name: influxdb site
+  template: >
+    src=site.conf
+    dest=/volumes/etc/nginx/sites-enabled/influxdb.conf
+  notify: Restart Nginx container

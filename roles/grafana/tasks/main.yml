@@ -1,0 +1,16 @@
+- name: Upstart grafana conf
+  copy: src=upstart.conf dest=/etc/init/grafana.conf
+
+- name: grafana container
+  docker:
+    name: grafana-container
+    image: tutum/grafana
+    ports: "{{ grafana_port }}:80"
+    env: "INFLUXDB_HOST={{ influxdb_host }}.{{ domain }},INFLUXDB_PORT=80,INFLUXDB_NAME={{ grafana_db }},INFLUXDB_USER={{ grafana_db_user }},INFLUXDB_PASS={{ grafana_db_pass }},HTTP_USER={{ grafana_user }},HTTP_PASS={{ grafana_pass }}"
+  notify: Start grafana container
+
+- name: grafana site
+  template: >
+    src=site.conf
+    dest=/volumes/etc/nginx/sites-enabled/grafana.conf
+  notify: Restart Nginx container

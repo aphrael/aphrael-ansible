@@ -10,3 +10,6 @@
     - grack
     - dir_image
     - tumblr-like
+    - influxdb
+    - cadvisor
+    - grafana

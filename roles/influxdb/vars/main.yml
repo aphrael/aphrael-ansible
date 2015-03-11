@@ -1,0 +1,5 @@
+influxdb_port:
+  - 8083
+  - 8086
+influxdb_pre_create_db: cadvisor
+influxdb_host: influxdb

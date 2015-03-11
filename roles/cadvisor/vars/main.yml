@@ -1,0 +1,5 @@
+cadvisor_port: 8080
+cadvisor_host: cadvisor
+cadvisor_db: cadvisor
+cadvisor_db_user: root
+cadvisor_db_pass: root
