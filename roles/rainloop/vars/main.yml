@@ -1,0 +1,3 @@
+rainloop_port: 9000
+rainloop_host: mail
+rainloop_ssl: false

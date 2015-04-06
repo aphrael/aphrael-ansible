@@ -1,0 +1,16 @@
+- name: Upstart rainloop conf
+  copy: src=upstart.conf dest=/etc/init/rainloop.conf
+
+- name: rainloop container
+  docker: >
+    name=rainloop-container
+    image=ahmet2mir/rainloop
+    volumes=/volumes/rainloop/data:/webapps/rainloop/data
+    ports={{ rainloop_port }}:80
+  notify: Start rainloop container
+
+- name: rainloop site
+  template: >
+    src=site.conf
+    dest=/volumes/etc/nginx/sites-enabled/rainloop.conf
+  notify: Restart Nginx container

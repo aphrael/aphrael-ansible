@@ -1,0 +1,5 @@
+- name: Start rainloop container
+  service: name=rainloop state=started
+
+- name: Restart rainloop container
+  service: name=rainloop state=restarted
