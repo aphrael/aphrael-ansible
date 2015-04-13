@@ -1,0 +1,5 @@
+- name: Start redis container
+  service: name=redis state=started
+
+- name: Restart redis container
+  service: name=redis state=restarted

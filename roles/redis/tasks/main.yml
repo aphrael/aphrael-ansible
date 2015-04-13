@@ -1,0 +1,9 @@
+- name: Upstart redis conf
+  copy: src=upstart.conf dest=/etc/init/redis.conf
+
+- name: redis container
+  docker: >
+    name=redis-container
+    image=sameersbn/redis
+    volumes=/volumes/redis/data:/var/lib/redis
+  notify: Start redis container

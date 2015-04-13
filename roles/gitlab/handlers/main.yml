@@ -1,0 +1,5 @@
+- name: Start gitlab container
+  service: name=gitlab state=started
+
+- name: Restart gitlab container
+  service: name=gitlab state=restarted

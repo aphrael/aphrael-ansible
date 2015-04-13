@@ -1,0 +1,44 @@
+- name: Upstart gitlab conf
+  copy: src=upstart.conf dest=/etc/init/gitlab.conf
+
+- name: Create gitlab database
+  docker:
+    name: create-gitlab-database
+    image: mysql
+    links: mysql-container:mysql
+    detach: False
+    command: >
+      sh -c 'exec echo "create database if not exists {{ gitlab_db_name }} DEFAULT CHARACTER SET utf8" |
+      mysql -h"$MYSQL_PORT_3306_TCP_ADDR"
+      -P"$MYSQL_PORT_3306_TCP_PORT"
+      -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'
+
+- name: Create gitlab database user
+  docker:
+    name: create-gitlab-database-user
+    image: mysql
+    links: mysql-container:mysql
+    detach: False
+    command: >
+      sh -c 'exec
+      echo "GRANT ALL PRIVILEGES on {{ gitlab_db_name }}.* TO {{ gitlab_db_user }} IDENTIFIED BY '\''{{ gitlab_db_password }}'\'';" |
+      mysql -h"$MYSQL_PORT_3306_TCP_ADDR"
+      -P"$MYSQL_PORT_3306_TCP_PORT"
+      -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'
+
+- name: gitlab container
+  docker:
+    name: gitlab-container
+    links: mysql-container:mysql,redis-container:redisio
+    image: sameersbn/gitlab:{{ gitlab_version }}
+    hostname: "{{ gitlab_host }}.{{ domain }}"
+    volumes: /volumes/gitlab/data:/home/git/data
+    ports: "{{ gitlab_http_port }}:80,{{ gitlab_ssh_port }}:22"
+    env: SMTP_USER={{ gitlab_smtp_user }},SMTP_PASS={{ gitlab_smtp_password }},DB_NAME={{ gitlab_db_name }},DB_USER={{ gitlab_db_user }},DB_PASS={{ gitlab_db_password }},GITLAB_HOST={{ gitlab_host}}.{{ domain }},GITLAB_SSH_PORT={{ gitlab_ssh_port }}
+  notify: Start gitlab container
+
+- name: gitlab site
+  template:
+    src: site.conf
+    dest: /volumes/etc/nginx/sites-enabled/gitlab.conf
+  notify: Restart Nginx container

@@ -4,10 +4,11 @@
     - common
     - docker
     - mysql
+    - redis
     - pdns
     - nginx
     - www
-    - grack
+    - gitlab
     - dir_image
     - tumblr-like
     - rainloop
