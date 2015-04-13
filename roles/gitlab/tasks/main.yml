@@ -34,7 +34,7 @@
     hostname: "{{ gitlab_host }}.{{ domain }}"
     volumes: /volumes/gitlab/data:/home/git/data
     ports: "{{ gitlab_http_port }}:80,{{ gitlab_ssh_port }}:22"
-    env: SMTP_USER={{ gitlab_smtp_user }},SMTP_PASS={{ gitlab_smtp_password }},DB_NAME={{ gitlab_db_name }},DB_USER={{ gitlab_db_user }},DB_PASS={{ gitlab_db_password }},GITLAB_HOST={{ gitlab_host}}.{{ domain }},GITLAB_SSH_PORT={{ gitlab_ssh_port }}
+    env: LANG=en_US.UTF-8,SMTP_USER={{ gitlab_smtp_user }},SMTP_PASS={{ gitlab_smtp_password }},DB_NAME={{ gitlab_db_name }},DB_USER={{ gitlab_db_user }},DB_PASS={{ gitlab_db_password }},GITLAB_HOST={{ gitlab_host}}.{{ domain }},GITLAB_SSH_PORT={{ gitlab_ssh_port }}
   notify: Start gitlab container
 
 - name: gitlab site
