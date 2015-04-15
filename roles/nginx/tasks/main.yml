@@ -4,23 +4,27 @@
 - name: Upstart Nginx conf
   copy: src=upstart/nginx.conf dest=/etc/init/nginx.conf
 
+- name: Nginx sites
+  copy:
+    src: nginx/
+    dest: /volumes/etc/nginx/
+    directory_mode: 755
+  notify: Restart Nginx container
+
+- name: Nginx upload ssl crt
+  template:
+    src: ssl.crt
+    dest: /volumes/etc/nginx/certs/default.crt
+
+- name: Nginx upload ssl key
+  template:
+    src: ssl.key
+    dest: /volumes/etc/nginx/certs/default.key
+
 - name: Nginx container
   docker: >
     name=nginx-container
     image=dockerfile/nginx
-    volumes=/volumes/etc/nginx/sites-enabled:/etc/nginx/sites-enabled,/volumes:/volumes,/volumes/etc/nginx/certs:/etc/nginx/certs
+    volumes=/volumes/log/nginx:/var/log/nginx,/volumes/etc/nginx/sites-enabled:/etc/nginx/sites-enabled,/volumes:/volumes,/volumes/etc/nginx/certs:/etc/nginx/certs
     ports=80:80,443:443
-  notify: Start Nginx container
-
-- name: Nginx sites
-  copy: >
-    src=nginx/
-    dest=/volumes/etc/nginx/
-    directory_mode=755
-  notify: Restart Nginx container
-
-- name: Nginx htpasswd
-  template: >
-    src=htpasswd
-    dest=/volumes/etc/nginx/sites-enabled/.htpasswd
   notify: Start Nginx container

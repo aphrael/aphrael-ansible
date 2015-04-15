@@ -1,4 +1,4 @@
-router_address: 192.168.33.10
+app_address: 192.168.33.10
 domain: 192.168.33.10.xip.io
 mysql_root_password: mysqlsecret
 mysql_user: user

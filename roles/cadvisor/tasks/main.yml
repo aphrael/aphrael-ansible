@@ -9,7 +9,7 @@
     ports: "{{ cadvisor_port }}:8080"
     #env: "DB_NAME={{ cadvisor_db }},DB_USER={{ cadvisor_db_user }},DB_PASS={{ cadvisor_db_pass }}"
     #links: influxdb-container:influxdb
-    command: "--storage_driver=influxdb --storage_driver_host={{ router_address }}:{{ influxdb_port[1] }} --log_dir=/"
+    command: "--storage_driver=influxdb --storage_driver_host={{ app_address }}:{{ influxdb_port[1] }} --log_dir=/"
   notify: Start cadvisor container
 
 - name: cadvisor site

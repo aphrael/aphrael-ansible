@@ -20,6 +20,11 @@
     ports={{ dir_image_port }}:{{ dir_image_port }}
   notify: Start dir_image container
 
+- name: dir_image htpasswd
+  template: >
+    src=htpasswd
+    dest=/volumes/etc/nginx/sites-enabled/.dir_image_htpasswd
+
 - name: dir_image site
   template: >
     src=site.conf
